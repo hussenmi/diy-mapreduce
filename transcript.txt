@@ -1,0 +1,115 @@
+Okay, hello guys. So this recording, I just want to showcase some of the features of Kubernetes, which will be really helpful 
+in the pre-class work, in class activity, as well as real helpful for the assignment. 
+So we'll go through some of the features and discuss them in class. So what you first want to do is just go to this link right 
+here, which will be posted in the pre-class document, and just clone it in your local system, and it has a lot of files that 
+you'll be able to read and interact with. 
+So what do we want to do here? So as you can see, we have a lot of these different files that we can work with, and we'll be 
+showing some of the features right now. 
+We'll be building up on some of the other features in class, and then the rest will be left for the assignment, which will be 
+discussing with the prof. So just make sure, first, you have a mini-cube and Cubsitial installed. 
+So mini-cube helps you to create the Kubernetes cluster, and then Cubsitial will help you to interact with that cluster via 
+the command line. Right? 
+And one other thing that I wanted to mention before we get started is almost all of this code here is written, so that you 
+don't have to write any code, you just have to run all of these properly. 
+So for example, here in the setup, Kubernetes.sh file, that's why I might have shell files. So you can just run the shell 
+files and not really worry about typing each code or each command. 
+But you'll really have to understand what's happening here in every place. Okay, so what we want to do in this tutorial is 
+just first get our application deployed to Kubernetes, and then we'll also be looking at how to balance the load that we'll 
+be getting from requests to our application. 
+So like don't care about, don't worry about all of these stuff right here. We'll look at them later for now, just focus on 
+this. And our application is just a simple task application that just sells, hello, the distributive system, story is the 
+best. Right? That's it. 
+So the first thing that we want to do is set up our Kubernetes cluster and to do that, we will just do a mini cube start. 
+Right? So just make sure you have mini cube and cubes if you install and just start. Right? So once you start your mini cube, 
+this will basically create the cluster in your local environment. 
+And what do we want to do? Let's see here, set up Kubernetes just basically takes everything and set stuff for the first time. 
+And this is really important for a command right here. So what this basically does is it connects Docker and Kubernetes because 
+Kubernetes, the worker not need to docker to work. 
+And if you're on either a Windows or a Mac, just make sure to have Docker desktop open before you run any of these because it 
+needs to communicate with two of them. I'm on Linux. So I don't really need to open that right now. 
+It's already open by default in the terminal. But if you're on a Mac or Windows, just make sure to have Docker desktop open. 
+And the first thing that it does is just basically it creates a Docker image using the application that we have using the 
+app.py. Right? It just creates the Docker image from that. And then it will apply these two things right here. Apply the 
+deployment. YAMLFland, the service. YAMLF. Now what are these? So if you went through the Kubernetes documentation and 
+tutorial on their website, you would see that they used a lot of imperative programming. And that means they just told 
+Kubernetes how to do things instead of what to do. 
+Right? So, well, if these approaches can be useful, but we want to go through the what to do type. So the deployment just 
+basically tells your system that desired state and then Kubernetes takes care of all the rest, right? 
+So let's look at our deployment file. So this is just basically kind of very much resembles a Docker compose file. Right? 
+We're telling Kubernetes that this is a deployment and we're just calling it the last deployment. 
+And for now, we're just going to have to wrap it up. So the service also important, but I don't want you to worry about that 
+just for now. Well, we can get to that a bit later. Right? So the service file, the service. YAML file is also very important 
+because it tells Kubernetes how to communicate with themselves or the parts between Kubernetes within Kubernetes needs to 
+communicate within themselves as well as outside of the cluster as well. 
+Right? So that's how we're going to be accessing our app using the service. So the kind is a service and we're naming it the 
+flask service. The rest of the stuff is also important, but I don't want you to worry about that just now. 
+So yeah, in setup Kubernetes, this is what we're doing. We're getting Docker to work building the image and then having 
+this tool run. Right? So let's do that. 
+And how you can do that is just so if you're on a Mac in this shell files can run and if you're on a Windows, I will give 
+you the files run just a bit. 
+So you can just do dots slash and then just set up Kubernetes to SH. And this will just be as quickly build the image and 
+deploy it on our Kubernetes cluster. 
+And a very important tool to visualize all this is the dashboard. So let's say mini cube dashboard and we can visualize 
+all of this. 
+So as you can see, we have one deployment and we have two parts and we have one replica set because we only have one image 
+for now. And this is our flask deployment and this is our image like from our app and we have two parts, which we said earlier. 
+Okay, that's great. Right? So now we want to see what our application looks like and what did we say earlier? We can look 
+at our application by using service. Right? So let's do that. 
+And we call the service flask service. And it just basically gives us a little bit tutorial. So best. And that's it. 
+Right. So this is our basic version of the app, we just used Kubernetes to create a deployment and interact with that using 
+the service. Right. 
+I want to showcase a different version of our app. By that, I mean, I want to showcase if we're getting a lot of requests 
+how Kubernetes should be able to balance the load between the different parts that we have. 
+And for that, we have this script right here. And let's see what it does. Right. So this looks like a lot, but it's not that 
+bad. Just bear with me. I'll describe what it does. 
+So let's bring them up into two portions because they're basically the same. So let's discuss this first. So what it does is 
+just basically increase the number of all because that we have to for. So we already had we have to originally and we're 
+increasing it to four. 
+And the sleep part is just for it to stabilize. So don't worry about that too much. What this part does is. So what this 
+part does is just basically connect with our services for us to be able to request from outside the cluster to submit requests 
+outside the cluster and interact with our cluster basically. 
+And this right here is just basically simulating a request from outside the cluster to to our app that we just created. 
+So let's assume that we have five customers that are requesting our app. 
+And how do we balance the load between the different servers that we have. So this is what we're busy. Well, we'll be seeing 
+right here when we run this. And then after that, I wanted to also show what happens if one of the parts like dice suddenly, 
+right. 
+And to simulate that will just be deleting one of the parts. So delete one part. And then we're going to be simulating the 
+requests again and see what happens. And after that, we'll get the number of parts that we have. And if you remember, one of 
+the benefits of Kubernetes is that even if one of the parts go down, it will automatically detect that and bring the number 
+of parts we have to our desired state, which is four in this case. 
+So we'll just see that we will have four applications even after deleting a part or if the part fails. Right. So to do that, 
+let me just change our app version from the normal version to the load balanced demo version. 
+This is just basically useful for us to see the different parts that are using the images. And that just basically deletes 
+the deployment and the service and just allows us to start fresh. 
+So, um, is just basically tear down Kubernetes. So that we start fresh. And then now let's bring up Kubernetes again with 
+the new image. 
+Right. So set up Kubernetes. I'm going to be using the new image. Um, for from this app right here, we'll be using this. 
+Um, and now we're going to be running our load balancing demo, right. So we'll be looking at it from two sides from the 
+terminal and within the dashboard and we'll get very important perspective or interesting perspective from both. 
+So to run that, we can say demo, what balancing the SH and let's see, we're scaling our replica for, right. And we should 
+go here. We already, we only had two in the beginning. Look at this. Now we have four parts. Right. And now we're trying to 
+access the parts or our application from different requests. 
+So the first request is going to this part right here and to know which part it is. Just look at the like the last five 
+letters. So the first three requests went to the same part. 
+Right. And then the fourth and the fifth went to the different part. So that's how when it is decided to do that for this 
+case. And after that, we're deleting the pod to simulate a failure. And then we're requesting access again. 
+So the first request went to this part, just look at the five last letters. And then the second went to a different part and 
+then the different part in a different part. Right. So, um, we had no downtime basically. 
+So that's a really good advantage of using Kubernetes. And to check on the number of parts that we have, even after deleting 
+them, we see that we have four parts, right. 
+And let's see that this was actually the case. So if you look at the age, you see that one of them is 16 seconds, where the 
+rest are like 59 seconds, 37 seconds. So this 59 seconds were the original ones that we had using the deployment. And then 
+this 37 second one was the one that we created this when we made this new replica right here. 
+And the 16 second one was the deleted one. So we deleted that and we brought up a new one. Actually, we didn't brought up a 
+new one. Kubernetes did that automatically for us. And that's why you see the 16 second bit. 
+So, yeah, we still have one deployment and then four replicas right here. So, yeah, we'll be building up on this in class 
+and it will be really helpful for the assignments. 
+Just make sure to read up on all of these and understand what they're doing. If you have any questions, please ask whether 
+in chat or in class and whatever. 
+So, yeah, what you want to do after this point is just tear down Kubernetes. And also delete the mini cube cluster. 
+The other thing that you want to do is complete darker cleanup, which I also created a script. Don't do this if you have a 
+lot of sensitive stuff in Docker, but I don't have I don't have anything so I'm just going to clean Docker right now. 
+And I can also stop my mini cube cluster as well. So, basically just mini cube stop. I can do that and I can also just delete 
+my mini cube cluster as well. 
+So, yeah, just let this stop. And, cube the leads. So, this will delete your questions from. 
+So, of who from this useful and now see you in class.

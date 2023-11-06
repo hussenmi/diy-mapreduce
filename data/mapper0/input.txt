@@ -1,0 +1,28 @@
+Okay, hello guys. So this recording, I just want to showcase some of the features of Kubernetes, which will be really helpful 
+in the pre-class work, in class activity, as well as real helpful for the assignment. 
+So we'll go through some of the features and discuss them in class. So what you first want to do is just go to this link right 
+here, which will be posted in the pre-class document, and just clone it in your local system, and it has a lot of files that 
+you'll be able to read and interact with. 
+So what do we want to do here? So as you can see, we have a lot of these different files that we can work with, and we'll be 
+showing some of the features right now. 
+We'll be building up on some of the other features in class, and then the rest will be left for the assignment, which will be 
+discussing with the prof. So just make sure, first, you have a mini-cube and Cubsitial installed. 
+So mini-cube helps you to create the Kubernetes cluster, and then Cubsitial will help you to interact with that cluster via 
+the command line. Right? 
+And one other thing that I wanted to mention before we get started is almost all of this code here is written, so that you 
+don't have to write any code, you just have to run all of these properly. 
+So for example, here in the setup, Kubernetes.sh file, that's why I might have shell files. So you can just run the shell 
+files and not really worry about typing each code or each command. 
+But you'll really have to understand what's happening here in every place. Okay, so what we want to do in this tutorial is 
+just first get our application deployed to Kubernetes, and then we'll also be looking at how to balance the load that we'll 
+be getting from requests to our application. 
+So like don't care about, don't worry about all of these stuff right here. We'll look at them later for now, just focus on 
+this. And our application is just a simple task application that just sells, hello, the distributive system, story is the 
+best. Right? That's it. 
+So the first thing that we want to do is set up our Kubernetes cluster and to do that, we will just do a mini cube start. 
+Right? So just make sure you have mini cube and cubes if you install and just start. Right? So once you start your mini cube, 
+this will basically create the cluster in your local environment. 
+And what do we want to do? Let's see here, set up Kubernetes just basically takes everything and set stuff for the first time. 
+And this is really important for a command right here. So what this basically does is it connects Docker and Kubernetes because 
+Kubernetes, the worker not need to docker to work. 
+And if you're on either a Windows or a Mac, just make sure to have Docker desktop open before you run any of these because it 

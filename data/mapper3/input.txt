@@ -1,0 +1,31 @@
+the new image. 
+Right. So set up Kubernetes. I'm going to be using the new image. Um, for from this app right here, we'll be using this. 
+Um, and now we're going to be running our load balancing demo, right. So we'll be looking at it from two sides from the 
+terminal and within the dashboard and we'll get very important perspective or interesting perspective from both. 
+So to run that, we can say demo, what balancing the SH and let's see, we're scaling our replica for, right. And we should 
+go here. We already, we only had two in the beginning. Look at this. Now we have four parts. Right. And now we're trying to 
+access the parts or our application from different requests. 
+So the first request is going to this part right here and to know which part it is. Just look at the like the last five 
+letters. So the first three requests went to the same part. 
+Right. And then the fourth and the fifth went to the different part. So that's how when it is decided to do that for this 
+case. And after that, we're deleting the pod to simulate a failure. And then we're requesting access again. 
+So the first request went to this part, just look at the five last letters. And then the second went to a different part and 
+then the different part in a different part. Right. So, um, we had no downtime basically. 
+So that's a really good advantage of using Kubernetes. And to check on the number of parts that we have, even after deleting 
+them, we see that we have four parts, right. 
+And let's see that this was actually the case. So if you look at the age, you see that one of them is 16 seconds, where the 
+rest are like 59 seconds, 37 seconds. So this 59 seconds were the original ones that we had using the deployment. And then 
+this 37 second one was the one that we created this when we made this new replica right here. 
+And the 16 second one was the deleted one. So we deleted that and we brought up a new one. Actually, we didn't brought up a 
+new one. Kubernetes did that automatically for us. And that's why you see the 16 second bit. 
+So, yeah, we still have one deployment and then four replicas right here. So, yeah, we'll be building up on this in class 
+and it will be really helpful for the assignments. 
+Just make sure to read up on all of these and understand what they're doing. If you have any questions, please ask whether 
+in chat or in class and whatever. 
+So, yeah, what you want to do after this point is just tear down Kubernetes. And also delete the mini cube cluster. 
+The other thing that you want to do is complete darker cleanup, which I also created a script. Don't do this if you have a 
+lot of sensitive stuff in Docker, but I don't have I don't have anything so I'm just going to clean Docker right now. 
+And I can also stop my mini cube cluster as well. So, basically just mini cube stop. I can do that and I can also just delete 
+my mini cube cluster as well. 
+So, yeah, just let this stop. And, cube the leads. So, this will delete your questions from. 
+So, of who from this useful and now see you in class.
