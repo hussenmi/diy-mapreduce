@@ -3,28 +3,31 @@ from multiprocessing import Process
 
 class Reducer(Process):
     def __init__(self, queue, output_file, num_mappers):
-        super(Reducer, self).__init__()
-        self.queue = queue
-        self.output_file = output_file
-        self.num_mappers = num_mappers
-        self.word_counts = Counter()
+        super().__init__()
+        self.queue = queue  
+        self.output_file = output_file  
+        self.num_mappers = num_mappers  
+        self.word_counts = Counter()  
 
     def run(self):
-        eof_received = 0
-        while eof_received < self.num_mappers:
-            data = self.queue.get()
-            if data is None:
-                eof_received += 1
+        # The run method is called when the process starts
+        eof_received = 0  # Counter for EOF signals received from mappers
+        while eof_received < self.num_mappers:  
+            data = self.queue.get()  
+            if data is None:  
+                eof_received += 1  
             else:
-                word, count = data
-                self.word_counts[word] += count
+                word, count = data  
+                self.word_counts[word] += count  
 
-        self.write_results()
+        self.write_results()  
 
     def write_results(self):
-        with open(self.output_file, 'w') as f:
-            for word, count in self.word_counts.items():
+        # This method writes the reducer's results to the output file
+        with open(self.output_file, 'w') as f:  
+            for word, count in self.word_counts.items():  
                 f.write(f"{word}: {count}\n")
+
                 
 
 
