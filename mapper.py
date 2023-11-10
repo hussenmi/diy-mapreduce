@@ -2,7 +2,6 @@ import os
 import re
 import hashlib  # Used to hash the words
 from multiprocessing import Process, current_process
-import random
 import signal
 
 class Mapper(Process):

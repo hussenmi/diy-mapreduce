@@ -8,7 +8,7 @@ from collections import Counter
 # Constants
 NUM_MAPPERS = 4
 NUM_REDUCERS = 2
-INPUT_FILE = 'transcript.txt'
+INPUT_FILE = 'The_Great_Gatsby.txt'
 BASE_DIR = 'data'
 
 def split_input_file_block(input_file, num_mappers, base_dir):
@@ -114,14 +114,14 @@ def aggregate_results(num_reducers):
 
 
 def main():
-    # Step 1: Split input file into chunks for mappers. We can choose to use either the block or round-robin method.
+    # Split input file into chunks for mappers. We can choose to use either the block or round-robin method.
     split_input_file_block(INPUT_FILE, NUM_MAPPERS, BASE_DIR)
     # split_input_file_round_robin(INPUT_FILE, NUM_MAPPERS, BASE_DIR)
 
-    # Step 2: Initialize queues for reducers
+    # Initialize queues for reducers
     reducer_queues = [Queue() for _ in range(NUM_REDUCERS)]
 
-    # Step 3: Start reducer processes
+    # Start reducer processes
     reducers = []
     for i in range(NUM_REDUCERS):
         output_file = f'reducer_output_{i}.txt'
@@ -129,7 +129,7 @@ def main():
         reducers.append(reducer)
         reducer.start()
 
-    # Step 4: Start mapper processes
+    # Start mapper processes
     mappers = []
     for i in range(NUM_MAPPERS):
         mapper_dir = os.path.join(BASE_DIR, f'mapper{i}')
@@ -140,15 +140,15 @@ def main():
     # Next, before we start aggregating the results, we want to make sure both the mappers and reducers have finished,
     # so we use the join() method on each process to wait for them to finish.
 
-    # Step 5: Wait for all mappers to finish
+    # Wait for all mappers to finish
     for mapper in mappers:
         mapper.join()
 
-    # Step 6: Wait for all reducers to finish
+    # Wait for all reducers to finish
     for reducer in reducers:
         reducer.join()
 
-    # Step 7: Aggregate results from reducers and write to final output file
+    # Aggregate results from reducers and write to final output file
     aggregate_results(NUM_REDUCERS)
 
 if __name__ == '__main__':

@@ -4,6 +4,8 @@ This document provides a thorough explanation of the MapReduce framework impleme
 
 ## Overview
 
+A video explaining how the program works and how the files interact can be found [here](https://screenapp.io/app/#/shared/f31a1151-41f6-411a-9996-f9aa89bd5292).
+
 The MapReduce framework is designed to mimic the parallel processing capabilities of the MapReduce programming model, which allows for distributed processing of large data sets across a cluster of computers using a simple programming model.
 
 ## Components
@@ -41,8 +43,9 @@ The `Reducer` class receives key-value pairs from mappers. It aggregates the cou
 ## Design Choices
 
 - **Data Splitting**: Two strategies were implemented for splitting data — block-wise and round-robin. The block-wise method divides the file into contiguous chunks that are sent to each mapper. The round-robin method distributes the lines across mappers in a round-robin fashion. Each method has its advantages and can be chosen based on the specific characteristics of the dataset and the processing requirements.
-- **Non-Cryptographic Hashing**: A consistent hashing function is used to distribute words to reducers. We chose a non-cryptographic hash for efficiency, as cryptographic hashes are not necessary for this application.
-- **Multiprocessing**: Python's multiprocessing module is used to parallelize the map and reduce tasks. This provides a simple way to perform parallel processing on multi-core machines without dealing with the complexities of threading or manual process management.
+- **Continuous Processing**: When the mappers process a line, they'll put the data into the appropriate reducer's queue, and the reducer that receives the data will get to work right away instead of waiting for all the mapper processes to finish. This is useful in processing a huge amount of, as is usually the case when discussing MapReduce.
+- **Hashing**: A consistent hashing function is used to distribute words to reducers. The hd5 hash function was used for this purpose.
+- **Simulating Failures**: I killed a mapper and reducer, one at a time to see what the result is going to be like. When I killed a mapper, the system could not finish because the reducers will be waiting for an EOF from that mapper, but since it's dead, it won't give that signal, so the reducers will keep waiting and the program won't terminate. When I killed one of the reducers, the program terminates but it it'll only give the result from one of the reducers, and it'll also tell us which reducers have failed. 
 
 ## Future Improvements
 
