@@ -13,6 +13,8 @@ class Reducer(Process):
         # The run method is called when the process starts
         eof_received = 0  # Counter for EOF signals received from mappers
         while eof_received < self.num_mappers:  
+            # Here, we are hearing for anything that is put into the queue. The mapper process doesn't have to finish for the 
+            # reducer to start processing the data.
             data = self.queue.get()  
             if data is None:  
                 eof_received += 1  

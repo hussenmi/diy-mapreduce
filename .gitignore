@@ -3,3 +3,4 @@ data/
 reducer_output_0.txt
 reducer_output_1.txt
 final_output.txt
+__pycache__/
