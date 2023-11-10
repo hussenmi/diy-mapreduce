@@ -51,6 +51,5 @@ The `Reducer` class receives key-value pairs from mappers. It aggregates the cou
 
 The current framework is a basic implementation and can be extended with features like:
 
-- Automatic process recovery in case of failure.
-- More sophisticated data distribution strategies to optimize for different types of workloads.
+- Adding fault-tolerance incase of a mapper or reducer failure to be able to still handle all the data.
 - Scalability to run across multiple machines in a cluster.
