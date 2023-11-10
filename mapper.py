@@ -1,20 +1,28 @@
 import os
 import re
 import hashlib  # Used to hash the words
-from multiprocessing import Process
+from multiprocessing import Process, current_process
+import random
+import signal
 
 class Mapper(Process):
-    def __init__(self, input_dir, reducer_queues):
+    def __init__(self, input_dir, reducer_queues, identifier):
         # Call the initializer of the parent Process class
         super().__init__()
         self.input_dir = input_dir  
-        self.reducer_queues = reducer_queues  
+        self.reducer_queues = reducer_queues
+        self.identifier = identifier
 
     def run(self):
         # The run method is called when the process starts
         input_file_path = os.path.join(self.input_dir, 'input.txt')  
         with open(input_file_path, 'r') as input_file:  
-            for line in input_file:  
+            for line in input_file:
+                # if self.identifier == 2:  
+                #     print("Simulating failure for mapper with identifier 2")
+                #     os.kill(current_process().pid, signal.SIGTERM)
+                    
+                    
                 words = re.findall(r'\b\w+\b', line)  # Extract words using regex
                 for word in words:  
                     clean_word = word.lower()  
